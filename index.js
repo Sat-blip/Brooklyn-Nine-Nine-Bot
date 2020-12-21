@@ -14,9 +14,9 @@ try {
 }
 //Constants------------------------------------------------------------
 const client = new Discord.Client();
-const version = "v1.4";
+const version = "v1.0";
 const colour = '#0099ff';
-const footer = "Auto Greg Bot " + version + " | Prag's Pog Squad";
+const footer = "Meep Morp Robot " + version + " | /r/brooklynninenine Official Discord";
 
 //On start up -------------------------------------
 client.on('ready', () => {
@@ -53,6 +53,30 @@ client.on('message', msg => {
   else if(command === "addbd") {
     client.commands.get('addbd').execute(msg, args, typicalEmbed, colour, footer, fs);
   }
+  else if(command === "rembd") {
+    client.commands.get('rembd').execute(msg, args, fs);
+  }
+  else if(command === "bug") {
+    client.commands.get('bug').execute(msg, args, client.channels.cache.get("535523482868383750"));
+  }
+  else if(command === "epbio") {
+    function Embed(footer, color, Synopsis, image, EpName, Season, Episode) {
+      const Embed = new Discord.MessageEmbed()
+      .setColor(colour)
+      .setTitle(EpName)
+      .setTimestamp()
+      .setThumbnail("https://cdn.discordapp.com/icons/535148342078865409/a_6564873fc82b7ff704879b5bb0cdc3a2.gif?size=1024")
+      .setImage(image)
+      .addFields(
+        { name: "Synopsis", value: Synopsis},
+        { name: "Season", value: Season, inline: true },
+        { name: "Episode", value: Episode, inline: true },
+      )
+      .setFooter(footer);
+    return Embed;
+    }
+    client.commands.get('epbio').execute(msg, args, fs, Embed, footer, colour);
+  }
 });
 
 //Embed function for general use.
@@ -66,6 +90,10 @@ function typicalEmbed(desc, title, footer, colour) {
 
   return Embed;
 }
+
+
+
+client.login(token); //Bot logging into Discord.
 
 
 
