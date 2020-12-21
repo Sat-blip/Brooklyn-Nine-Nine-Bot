@@ -5,3 +5,4 @@ A bot for the official /r/brooklyninnine Discord Server
 - /addbd command - adds birthday.
 - /rembd command - removes birthday.
 - /help - help.
+- /topic - gives you a random topic.
