@@ -77,8 +77,8 @@ client.on('message', msg => {
     }
     client.commands.get('epbio').execute(msg, args, fs, Embed, footer, colour);
   }
-	else if(command === "topic") {
-    client.commands.get('topic').execute(msg, args, typicalEmbed, footer, colour)
+  else if(command === "topic") {
+    client.commands.get('topic').execute(msg, args);
   }
 });
 
