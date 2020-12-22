@@ -1,7 +1,7 @@
 module.exports = {
 	name: 'topic',
 	description: 'Gives you a random topic.',
-	execute(msg, args, typicalEmbed, footer, color) {
+	execute(msg) {
     const Topics = [
                     "If you were in a circus, which character would you be?", 
                     "What is the worst advice you have given?",
@@ -34,8 +34,8 @@ module.exports = {
                     "What do you think is a good age to start dating?",
                     "If you could go anywhere in the world, where would you choose and why?",
                     "What is something you wish you could do everyday?",
-                    "Note: add more from here: https://www.gifts.com/blog/conversation-starters"]
-    const desc = "**" + Topics[Math.floor(Math.random() * Topics.length)] + "**";
-    msg.channel.send(typicalEmbed(desc, "New Topic:", footer, colour));
+                    "Note: add more from here: https://www.gifts.com/blog/conversation-starters"];
+    const desc = Topics[Math.floor(Math.random() * Topics.length)];
+    msg.channel.send(desc);
   },
 };
