@@ -96,6 +96,9 @@ client.on('message', msg => {
       msg.channel.send("You can't do that!");
     }
   }
+  else if(command === "trivialb") {
+    client.commands.get("trivialb").execute(msg, args, typicalEmbed, colour, footer, trivia);
+  }
 });
 
 
