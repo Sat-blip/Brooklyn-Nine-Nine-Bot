@@ -10,7 +10,7 @@ module.exports = {
         trivia.set(PersonToGive, CurrentPoints + parseInt(args[1]));
         msg.channel.send("Done!");
       } else {
-        trivia.set(PersonToGive, args[1])
+        trivia.set(PersonToGive, parseInt(args[1]));
       }
     } catch(e) {
       msg.channel.send("Correct usage: `$addtrivia [mention user] [amount]`");
