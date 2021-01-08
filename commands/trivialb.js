@@ -1,14 +1,15 @@
 module.exports = {
 	name: 'trivialb',
 	description: 'Displays the top 10 trivia people.',
-	execute(msg, args, typicalEmbed, colour, footer, trivia) {
+	execute(msg, args, typicalEmbed, colour, footer, fs) {
 		const TriviaPoints = [];
 		const UserID = [];
 		const lbPlacements = [":one:", ":two:", ":three:", ":four:", ":five:", ":six:", ":seven:", ":eight:", ":nine:", ":one::zero:"];
 		//Getting the DB as an array.
-		for(let i = 0; i < trivia.all().length; i++) {
-			TriviaPoints.push(parseInt(trivia.all()[i]["data"]));
-			UserID.push(trivia.all()[i]["ID"]);
+		const data = JSON.parse(fs.readFileSync("JSONs/trivia.json", "utf8"));
+		for(let i = 0; i < data.length; i++) {
+			TriviaPoints.push(parseInt(data[i]["TriviaPoints"]));
+			UserID.push(data[i]["UserID"]);
 		}
 		
 		//Bubble sorting both arrays.
