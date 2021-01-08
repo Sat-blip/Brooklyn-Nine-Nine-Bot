@@ -102,16 +102,17 @@ client.on('message', msg => {
 });
 
 
-client.on("messageReactionAdd", (reaction) => {
-  if(reaction.emoji.name == "✅") {
+client.on("messageReactionAdd", (reaction, user) => {
+  if(reaction.emoji.name == "✅" && user.id != reaction.message.author.id) {
     console.log("YES")
-    if(reaction.message.channel == client.channels.cache.get('760258600983199764')) {
+    if(reaction.message.channel == client.channels.cache.get('795959723593564200')) {
       console.log("IN CORRECT CHANNEL")
       const data = JSON.parse(fs.readFileSync("JSONs/trivia.json", "utf8"));
       console.log("PARSED")
       for(let i = 0; i < data.length; i++) {
         
         if(data[i]["UserID"] == reaction.message.author.id) {
+          console.log("IS DA SAME")
           data[i]["TriviaPoints"] = data[i]["TriviaPoints"] + 1;
           let jsonDATA = JSON.stringify(data);
           fs.writeFile("JSONs/trivia.json", jsonDATA, function(err) { if(err) { console.log(err); } });
