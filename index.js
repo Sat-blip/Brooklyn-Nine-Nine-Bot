@@ -80,33 +80,48 @@ client.on('message', msg => {
     client.commands.get('topic').execute(msg, args);
   }
   else if(command === "triviapts") {
-    client.commands.get('triviapts').execute(msg, args, typicalEmbed, colour, footer, trivia);
+    client.commands.get('triviapts').execute(msg, args, typicalEmbed, colour, footer, fs);
+  }
+  else if(command === "trivialb") {
+    client.commands.get('trivialb').execute(msg, args, typicalEmbed, colour, footer, fs);
   }
   else if(command === "addtrivia") {
     if(msg.member.roles.cache.has('775061162081255450') == true) {
-      client.commands.get("addtrivia").execute(msg, args, typicalEmbed, colour, footer, trivia);
+      client.commands.get("addtrivia").execute(msg, args, typicalEmbed, colour, footer, fs);
     } else {
       msg.channel.send("You can't do that!");
     }
   }
   else if(command === "remtrivia") {
     if(msg.member.roles.cache.has('775061162081255450') == true) {
-      client.commands.get("remtrivia").execute(msg, args, typicalEmbed, colour, footer, trivia);
+      client.commands.get("remtrivia").execute(msg, args, typicalEmbed, colour, footer, fs);
     } else {
       msg.channel.send("You can't do that!");
     }
-  }
-  else if(command === "trivialb") {
-    client.commands.get("trivialb").execute(msg, args, typicalEmbed, colour, footer, trivia);
   }
 });
 
 
 client.on("messageReactionAdd", (reaction) => {
   if(reaction.emoji.name == "✅") {
-    if(reaction.message.channel == client.channels.cache.get('795959723593564200')) {
-      let TriviaPoints = trivia.get(reaction.message.author.id) + 1;
-      trivia.set(reaction.message.author.id, TriviaPoints);
+    console.log("YES")
+    if(reaction.message.channel == client.channels.cache.get('760258600983199764')) {
+      console.log("IN CORRECT CHANNEL")
+      const data = JSON.parse(fs.readFileSync("JSONs/trivia.json", "utf8"));
+      console.log("PARSED")
+      for(let i = 0; i < data.length; i++) {
+        
+        if(data[i]["UserID"] == reaction.message.author.id) {
+          data[i]["TriviaPoints"] = data[i]["TriviaPoints"] + 1;
+          let jsonDATA = JSON.stringify(data);
+          fs.writeFile("JSONs/trivia.json", jsonDATA, function(err) { if(err) { console.log(err); } });
+        } else if(i == data.length - 1) {
+          let MyDict = { "UserID": reaction.message.author.id, "TriviaPoints": 1};
+          data.push(MyDict);
+          let jsonDATA = JSON.stringify(data);
+          fs.writeFile("JSONs/trivia.json", jsonDATA, function(err) { if(err) { console.log(err); } });
+        }
+      }
     }
   }
 });
